@@ -34,7 +34,7 @@ dependencies = [
 urls.Documentation = "https://github.com/reservoir-data/tap-fedidb#readme"
 urls.Homepage = "https://github.com/reservoir-data/tap-fedidb"
 urls.Repository = "https://github.com/reservoir-data/tap-fedidb"
-scripts."tap-fedidb" = "tap_fedidb.tap:TapFediDB.cli"
+scripts."tap-fedidb" = "tap_fedidb:TapFediDB.cli"
 
 [dependency-groups]
 dev = [

@@ -6,7 +6,7 @@ from typing import Any
 
 from singer_sdk.testing import SuiteConfig, get_tap_test_class
 
-from tap_fedidb.tap import TapFediDB
+from tap_fedidb import TapFediDB
 
 SAMPLE_CONFIG: dict[str, Any] = {}
 
