@@ -28,7 +28,8 @@ dynamic = [
   "version",
 ]
 dependencies = [
-  "singer-sdk~=0.48.0",
+  "singer-sdk~=0.50.0",
+  "typing-extensions>=4.15; python_full_version<'3.12'",
 ]
 urls.Documentation = "https://github.com/reservoir-data/tap-fedidb#readme"
 urls.Homepage = "https://github.com/reservoir-data/tap-fedidb"
@@ -41,7 +42,10 @@ dev = [
   { include-group = "typing" },
 ]
 testing = [ "deptry>=0.12", "pytest>=8", "singer-sdk[testing]" ]
-typing = [ "mypy" ]
+typing = [
+  "mypy>=1.18.2",
+  "ty>=0.0.1a21",
+]
 
 [tool.hatch.version]
 source = "vcs"
@@ -112,7 +116,10 @@ commands = [ [ "tap-fedidb", { replace = "posargs", default = [ "--config=ENV" ]
 
 [tool.tox.env.typing]
 dependency_groups = [ "testing", "typing" ]
-commands = [ [ "mypy", "--strict", { replace = "posargs", default = [ "tap_fedidb", "tests" ], extend = true } ] ]
+commands = [
+  [ "mypy", "--strict", { replace = "posargs", default = [ "tap_fedidb", "tests" ], extend = true } ],
+  [ "ty", "check", { replace = "posargs", default = [ "tap_fedidb", "tests" ], extend = true } ],
+]
 
 [tool.mypy]
 warn_redundant_casts = true
@@ -127,4 +134,4 @@ ignore_missing_imports = true
 module = [ "backoff.*" ]
 
 [tool.uv]
-required-version = ">=0.5.19"
+required-version = ">=0.8"
