@@ -28,7 +28,7 @@ dynamic = [
   "version",
 ]
 dependencies = [
-  "singer-sdk~=0.50.0",
+  "singer-sdk~=0.51.0",
   "typing-extensions>=4.15; python_full_version<'3.12'",
 ]
 urls.Documentation = "https://github.com/reservoir-data/tap-fedidb#readme"
