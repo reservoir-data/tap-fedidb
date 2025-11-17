@@ -1,5 +1,5 @@
-version: 1
 send_anonymous_usage_stats: false
+requires_meltano: ">=4.0"
 project_id: tap-fedidb
 default_environment: dev
 environments:
