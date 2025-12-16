@@ -1,8 +1,33 @@
+<div align="center">
+
 # tap-fedidb
+
+<div>
+  <a href="https://github.com/reservoir-data/tap-fedidb/blob/main/LICENSE">
+    <img alt="License" src="https://img.shields.io/github/license/reservoir-data/tap-fedidb"/>
+  </a>
+  <a href="https://results.pre-commit.ci/latest/github/reservoir-data/tap-fedidb/main">
+    <img alt="pre-commit.ci status" src="https://results.pre-commit.ci/badge/github/reservoir-data/tap-fedidb/main.svg"/>
+  </a>
+  <a href="https://scientific-python.org/specs/spec-0000/">
+    <img alt="SPEC 0 — Minimum Supported Dependencies" src="https://img.shields.io/badge/SPEC-0-green"/>
+  </a>
+  <a href="https://github.com/astral-sh/ruff">
+    <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json" alt="Ruff" style="max-width:100%;">
+  </a>
+  <a href="https://github.com/astral-sh/uv">
+   <img alt="uv" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json"/>
+  </a>
+  <a href="https://pypi.org/p/tap-fedidb/">
+    <img alt="Python versions" src="https://img.shields.io/pypi/pyversions/tap-fedidb"/>
+  </a>
+</div>
 
 Singer tap for [FediDB.org](https://fedidb.org).
 
 Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
+
+</div>
 
 # Capabilities
 
@@ -16,8 +41,6 @@ Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
 ## Supported Python Versions
 
-* 3.10
-* 3.11
 * 3.12
 * 3.13
 * 3.14
@@ -67,7 +90,7 @@ tap-fedidb --config CONFIG --discover > ./catalog.json
 
 You will need the following tools to develop and test this tap:
 
-- Python 3.10+
+- Python 3.12+
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 
 ### Create and Run Tests
@@ -75,7 +98,7 @@ You will need the following tools to develop and test this tap:
 Run integration tests:
 
 ```bash
-uvx --with=tox-uv tox -e 3.10
+uvx --with=tox-uv tox -e 3.12
 ```
 
 You can also test the `tap-fedidb` CLI interface directly:

@@ -2,16 +2,10 @@
 
 from __future__ import annotations
 
-import sys
-from typing import TYPE_CHECKING, Any, ClassVar
+from typing import TYPE_CHECKING, Any, ClassVar, override
 
 from singer_sdk import RESTStream, Stream, Tap
 from singer_sdk import typing as th
-
-if sys.version_info >= (3, 12):
-    from typing import override
-else:
-    from typing_extensions import override
 
 if TYPE_CHECKING:
     from singer_sdk.helpers.types import Context
