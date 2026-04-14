@@ -29,7 +29,7 @@ email = "edgarrm358@gmail.com"
 name = "Edgar Ramírez-Mondragón"
 email = "edgarrm358@gmail.com"
 [project.scripts]
-"tap-fedidb" = "tap_fedidb:TapFediDB.cli"
+tap-fedidb = "tap_fedidb:TapFediDB.cli"
 [project.urls]
 Documentation = "https://github.com/reservoir-data/tap-fedidb#readme"
 Homepage = "https://github.com/reservoir-data/tap-fedidb"
@@ -89,6 +89,16 @@ DEP002 = [ "deptry", "mypy", "pytest" ]
 [tool.pyproject-fmt]
 table_format = "long"
 
+[tool.mypy]
+enable_error_code = [ "ignore-without-code", "redundant-expr", "truthy-bool" ]
+strict = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_no_return = true
+warn_unreachable = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
 [tool.pytest]
 addopts = [
   "-vvv",
@@ -128,13 +138,3 @@ runner = "uv-venv-lock-runner"
 pass_env = [ "TAP_FEDIDB_*" ]
 dependency_groups = [ "testing" ]
 commands = [ [ "pytest", { replace = "posargs", default = [ "tests" ], extend = true } ] ]
-
-[tool.mypy]
-enable_error_code = [ "ignore-without-code", "redundant-expr", "truthy-bool" ]
-strict = true
-warn_redundant_casts = true
-warn_return_any = true
-warn_no_return = true
-warn_unreachable = true
-warn_unused_configs = true
-warn_unused_ignores = true
