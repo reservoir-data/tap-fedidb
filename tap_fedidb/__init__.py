@@ -23,6 +23,7 @@ class Servers(_FediDBStream):
     name = "servers"
     path = "/v1/servers"
     records_jsonpath = "$.data[*]"
+    primary_keys = ("id",)
     next_page_token_jsonpath = "$.meta.next_cursor"  # noqa: S105
 
     _page_size = 40
@@ -78,6 +79,7 @@ class Software(_FediDBStream):
 
     name = "software"
     path = "/v1/software"
+    primary_keys = ("id",)
     records_jsonpath = "$[*]"
 
     schema = th.PropertiesList(
@@ -108,6 +110,7 @@ class PopularAccounts(_FediDBStream):
 
     name = "popular_accounts"
     path = "/v1/popular-accounts"
+    primary_keys = ("id",)
     records_jsonpath = "$.data[*]"
 
     schema = th.PropertiesList(
