@@ -21,6 +21,7 @@ plugins:
     - stream-maps
     - schema-flattening
     - batch
+    - structured-logging
     settings: []
   loaders:
   - name: target-jsonl
