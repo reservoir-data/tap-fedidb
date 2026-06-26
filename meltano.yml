@@ -1,5 +1,5 @@
 send_anonymous_usage_stats: false
-requires_meltano: ">=4.0"
+requires_meltano: '>=4.0'
 project_id: tap-fedidb
 default_environment: dev
 environments:
@@ -7,12 +7,12 @@ environments:
 plugins:
   extractors:
   - name: tap-fedidb
-    label: FediDB
     namespace: fedidb
-    description: Fediverse Network Statistics
-    repo: https://github.com/reservoir-data/tap-fedidb
+    label: FediDB
     docs: https://github.com/reservoir-data/tap-fedidb#readme
+    repo: https://github.com/reservoir-data/tap-fedidb
     pip_url: -e .
+    description: Fediverse Network Statistics
     capabilities:
     - state
     - catalog

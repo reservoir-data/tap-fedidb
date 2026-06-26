@@ -127,7 +127,7 @@ commands = [
 [tool.tox.env_run_base]
 runner = "uv-venv-lock-runner"
 description = "run unit tests on Python {py_dot_ver}"
+base_python_file = [ ".python-version" ]
 dependency_groups = [ "testing" ]
 pass_env = [ "TAP_FEDIDB_*" ]
 commands = [ [ "pytest", { replace = "posargs", default = [ "tests" ], extend = true } ] ]
-base_python_file = [ ".python-version" ]
