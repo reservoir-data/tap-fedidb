@@ -30,7 +30,7 @@ repos:
       - id: ruff-format
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.37.3
+    rev: 0.37.4
     hooks:
     - id: check-meltano
     - id: check-github-workflows
@@ -40,7 +40,7 @@ repos:
       - pyjson5==2.0.0
 
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.11.24
+    rev: 0.11.26
     hooks:
     - id: uv-lock
     - id: uv-sync
@@ -51,6 +51,6 @@ repos:
     - id: mdformat
 
   - repo: https://github.com/crate-ci/typos
-    rev: v1.47.2
+    rev: v1.48.0
     hooks:
     - id: typos
