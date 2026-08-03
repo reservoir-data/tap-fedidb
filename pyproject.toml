@@ -66,6 +66,7 @@ ignore = [
   "FIX002", # line-contains-todo
   "ISC001", # single-line-implicit-string-concatenation
   "PD",     # pandas-vet
+  "CPY001", # missing-copyright-notice
 ]
 per-file-ignores."tests/*" = [
   "ANN201", # missing-return-type-public-function
