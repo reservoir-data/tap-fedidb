@@ -6,7 +6,7 @@ author_fullname: Edgar Ramírez-Mondragón
 author_username: edgarrmondragon
 dependabot_update_time: '10:00'
 dependabot_update_timezone: Etc/UTC
-python_main_version: '3.12'
+python_main_version: '3.13'
 repository_name: tap-fedidb
 repository_namespace: edgarrmondragon
 repository_provider: github.com

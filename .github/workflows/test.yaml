@@ -3,19 +3,8 @@ name: Test tap-fedidb
 on:
   push:
     branches: [main]
-    paths:
-      - tap_fedidb/**
-      - tests/**
-      - pyproject.toml
-      - uv.lock
-      - .github/workflows/test.yml
   pull_request:
-    paths:
-      - tap_fedidb/**
-      - tests/**
-      - pyproject.toml
-      - uv.lock
-      - .github/workflows/test.yml
+  merge_group:
   workflow_dispatch:
   schedule:
   # Run weekly on Monday at 12:00 PM UTC
@@ -25,22 +14,47 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 env:
   FORCE_COLOR: "1"
   # renovate: datasource=pypi depName=uv
-  UV_VERSION: 0.12.1
+  UV_VERSION: 0.13.6
   # renovate: datasource=pypi depName=tox
-  TOX_VERSION: 4.58.0
+  TOX_VERSION: 4.67.3
   # renovate: datasource=pypi depName=tox-uv
-  TOX_UV_VERSION: 1.36.0
+  TOX_UV_VERSION: 1.37.2
 
 jobs:
+  files-changed:
+    runs-on: ubuntu-latest
+    name: Detect file changes
+    outputs:
+      runtime: ${{ steps.changes.outputs.runtime }}
+    steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
+      id: changes
+      with:
+        filters: |
+          runtime:
+            - 'tap_fedidb/**'
+            - 'tests/**'
+            - 'pyproject.toml'
+            - 'uv.lock'
+            - '.github/workflows/test.yaml'
+
   build-package:
     name: Build & verify package
     runs-on: ubuntu-latest
+    needs: files-changed
+    if: >-
+      needs.files-changed.outputs.runtime == 'true'
+      || github.event_name == 'schedule'
+      || github.event_name == 'workflow_dispatch'
     outputs:
       supported-python-versions: ${{ steps.baipp.outputs.supported_python_classifiers_json_array }}
     steps:
@@ -48,12 +62,12 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: hynek/build-and-inspect-python-package@2abe76da66d0a6a4a227101f9348ee855797cfa5 # v3.0.1
+      - uses: hynek/build-and-inspect-python-package@67230f7b8410ae0052b39c1efc89d89fff43ff10 # v3.0.2
         id: baipp
 
   test:
     name: Test
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     needs: build-package
     strategy:
       fail-fast: false
@@ -64,7 +78,7 @@ jobs:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
-    - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+    - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
       with:
         python-version: ${{ matrix.python-version }}
         version: ${{ env.UV_VERSION }}
@@ -79,12 +93,12 @@ jobs:
 
   lint:
     name: Lint
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
-    - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+    - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
       with:
         version: ${{ env.UV_VERSION }}
     - run: >
@@ -97,3 +111,18 @@ jobs:
       run: tox -e typing
     - name: Unused, missing and transitive dependencies
       run: tox -e dependencies
+
+  ci:
+    name: CI required checks
+    if: always()
+    needs:
+    - build-package
+    - test
+    - lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Decide whether the needed jobs succeeded or failed
+      uses: re-actors/alls-green@b5b5b37504aa4183270bd3d855c52a67f212be35 # v1.3.0
+      with:
+        jobs: ${{ toJSON(needs) }}
+        allowed-skips: build-package,test
