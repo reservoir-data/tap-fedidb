@@ -22,7 +22,9 @@ plugins:
     - schema-flattening
     - batch
     - structured-logging
-    settings: []
+    select:
+    - '*.*'
+    - '!servers.*'
   loaders:
   - name: target-jsonl
     variant: andyh1203
