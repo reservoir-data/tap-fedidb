@@ -1,0 +1,21 @@
+name: PR Labeler
+
+on:
+  # zizmor: ignore[dangerous-triggers] pull_request_target is required so
+  # autolabeler gets write access on PRs from forks; the called workflow never
+  # checks out or executes code from the PR, only calls the labels API.
+  pull_request_target:
+    types: [opened, reopened, synchronize, edited]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  autolabel:
+    name: Autolabel PR
+    permissions:
+      pull-requests: write  # to autolabel PRs
+    uses: reservoir-data/.github/.github/workflows/pr-labeler.yaml@main
